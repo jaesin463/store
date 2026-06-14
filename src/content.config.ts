@@ -24,6 +24,7 @@ const apps = defineCollection({
     link: z.string(),
     isNew: z.boolean(),
     isFeatured: z.boolean(),
+    draft: z.boolean().default(false),
     features: z.array(z.string()),
     techDetail: z.string(),
     screenshots: z.array(z.object({
@@ -40,6 +41,7 @@ const patchNotes = defineCollection({
     version: z.string(),
     date: z.string(),
     type: z.enum(['patch', 'minor', 'major']),
+    draft: z.boolean().default(false),
     changes: z.array(change),
   }),
 });

@@ -43,7 +43,9 @@ export function PatchNotesPage() {
         ))}
       </div>
       <div className="flex flex-col gap-4">
-        {pagedNotes.map((note, idx) => (
+        {pagedNotes.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-4">아직 등록된 패치노트가 없습니다.</p>
+        ) : pagedNotes.map((note, idx) => (
           <div key={idx} className="bg-card border border-border rounded-md overflow-hidden">
             <div className="flex items-center gap-3 px-5 py-4 border-b border-border">
               <div className="flex-1">

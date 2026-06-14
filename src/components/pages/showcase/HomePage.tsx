@@ -21,7 +21,7 @@ export function HomePage({ setPage, goToApp, goToPost, isDark }: {
 }) {
   const featured = APPS.filter((a) => a.isFeatured);
   const totalDownloads = APPS.reduce((s, a) => s + a.downloads, 0);
-  const avgStars = (APPS.reduce((s, a) => s + a.stars, 0) / APPS.length).toFixed(1);
+  const avgStars = APPS.length === 0 ? "0.0" : (APPS.reduce((s, a) => s + a.stars, 0) / APPS.length).toFixed(1);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -80,7 +80,11 @@ export function HomePage({ setPage, goToApp, goToPost, isDark }: {
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {featured.map((app) => <AppCard key={app.id} app={app} isDark={isDark} onDetail={goToApp} />)}
+          {featured.length === 0 ? (
+            <p className="text-sm text-muted-foreground py-4">아직 추천 앱이 없습니다.</p>
+          ) : (
+            featured.map((app) => <AppCard key={app.id} app={app} isDark={isDark} onDetail={goToApp} />)
+          )}
         </div>
       </section>
 
@@ -92,7 +96,9 @@ export function HomePage({ setPage, goToApp, goToPost, isDark }: {
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {BLOG_POSTS.slice(0, 2).map((post) => (
+          {BLOG_POSTS.length === 0 ? (
+            <p className="text-sm text-muted-foreground py-4">아직 등록된 글이 없습니다.</p>
+          ) : BLOG_POSTS.slice(0, 2).map((post) => (
             <button
               key={post.id}
               onClick={() => goToPost(post)}
@@ -145,4 +151,3 @@ export function HomePage({ setPage, goToApp, goToPost, isDark }: {
     </div>
   );
 }
-

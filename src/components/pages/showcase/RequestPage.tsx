@@ -71,7 +71,9 @@ export function RequestPage() {
         <div>
           <h2 className="text-base font-semibold text-foreground mb-4">요청 현황</h2>
           <div className="flex flex-col gap-2">
-            {REQUESTS.map((req) => (
+            {REQUESTS.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-4">아직 등록된 요청 현황이 없습니다.</p>
+            ) : REQUESTS.map((req) => (
               <div key={req.id} className="p-4 bg-card border border-border rounded-md flex flex-col gap-2">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">

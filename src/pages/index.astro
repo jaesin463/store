@@ -3,10 +3,12 @@ import { getCollection } from 'astro:content';
 import AppShowcaseTemplate from '../components/templates/AppShowcaseTemplate';
 
 const apps = (await getCollection('apps'))
+  .filter((entry) => !entry.data.draft)
   .map((entry) => entry.data)
   .sort((a, b) => a.id - b.id);
 
 const patchNotes = (await getCollection('patchNotes'))
+  .filter((entry) => !entry.data.draft)
   .map((entry) => entry.data)
   .sort((a, b) => b.date.localeCompare(a.date));
 

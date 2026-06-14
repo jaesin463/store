@@ -43,7 +43,9 @@ export function BlogPage({ goToPost }: { goToPost: (p: BlogPost) => void }) {
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {pagedPosts.map((post) => (
+        {pagedPosts.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-4 sm:col-span-2">아직 등록된 글이 없습니다.</p>
+        ) : pagedPosts.map((post) => (
           <button
             key={post.id}
             onClick={() => goToPost(post)}

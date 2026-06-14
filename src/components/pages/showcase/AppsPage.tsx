@@ -46,7 +46,11 @@ export function AppsPage({ isDark, goToApp }: { isDark: boolean; goToApp: (a: Ap
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {pagedApps.map((app) => <AppCard key={app.id} app={app} isDark={isDark} onDetail={goToApp} />)}
+        {pagedApps.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-4 sm:col-span-2 lg:col-span-3">아직 등록된 앱이 없습니다.</p>
+        ) : (
+          pagedApps.map((app) => <AppCard key={app.id} app={app} isDark={isDark} onDetail={goToApp} />)
+        )}
       </div>
       <PaginationControls
         currentPage={currentPage}
