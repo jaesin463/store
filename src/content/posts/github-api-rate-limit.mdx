@@ -1,0 +1,36 @@
+---
+id: 2
+title: "GitHub API Rate Limit 극복기: GitPulse 개발 중 만난 벽"
+category: 트러블슈팅
+tags: [GitHub API, Rate Limit, IndexedDB, 캐싱]
+date: "2026-05-30"
+readTime: 6분
+summary: GitPulse 개발 중 GitHub API의 시간당 60회 제한에 부딪혔습니다. IndexedDB 기반 캐싱 레이어로 이 문제를 해결한 과정을 기록합니다.
+sections:
+  - type: h2
+    content: "문제 발생: 갑자기 멈추는 대시보드"
+  - type: p
+    content: GitPulse 베타 테스트 중 갑자기 데이터가 안 불러와진다는 피드백이 쏟아졌습니다. 원인은 GitHub REST API의 unauthenticated 요청 제한, 시간당 60회였습니다.
+  - type: h2
+    content: "해결책: TTL 기반 IndexedDB 캐시"
+  - type: p
+    content: 매 렌더링마다 API를 호출하는 구조를 IndexedDB 캐싱 레이어로 교체했습니다. TTL은 10분으로 설정해 데이터 신선도와 API 사용량을 균형있게 맞췄습니다.
+  - type: code
+    content: |
+      async function fetchWithCache(url: string, ttl = 600_000) {
+        const cached = await idb.get(url);
+        if (cached && Date.now() - cached.ts < ttl) {
+          return cached.data;
+        }
+        const data = await fetch(url).then(r => r.json());
+        await idb.set(url, { data, ts: Date.now() });
+        return data;
+      }
+  - type: ul
+    content:
+      - API 호출 횟수 94% 감소
+      - 평균 로딩 시간 2.1s → 80ms
+      - Rate limit 에러 발생 0건
+---
+
+본문도 Markdown으로 추가 작성할 수 있습니다.

@@ -1,0 +1,33 @@
+---
+id: 6
+name: WeatherNow
+tagline: 정확한 동네 날씨 예보
+description: 기상청 API 기반 시간별 날씨 예보, 강수 확률 그래프, 미세먼지 지수 제공. 위젯 지원.
+category: 날씨
+tech: [Python, FastAPI, KMA API, Vue.js]
+platform: [Web, Android]
+version: 1.2.3
+stars: 65
+downloads: 880
+status: maintenance
+link: "#"
+isNew: false
+isFeatured: false
+features:
+  - 기상청 단기예보 API 연동
+  - 시간별 / 주간 예보
+  - 강수 확률 & 강수량 그래프
+  - 미세먼지·초미세먼지·자외선 지수
+  - 위치 자동 감지 (GPS)
+  - 홈화면 위젯 (Android)
+techDetail: 백엔드 Python 3.11 + FastAPI. 기상청 API 데이터를 Redis로 10분 캐싱. 프론트 Vue 3 + Vite. 미세먼지는 에어코리아 API 추가 연동. 현재 점검 중인 사항은 기상청 API v2 마이그레이션.
+screenshots:
+  - label: 메인 날씨
+    accent: "#2563eb"
+  - label: 주간 예보
+    accent: "#0099bb"
+  - label: 대기질 정보
+    accent: "#059669"
+---
+
+WeatherNow 앱 설명 예시입니다.

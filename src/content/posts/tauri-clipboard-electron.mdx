@@ -1,0 +1,43 @@
+---
+id: 1
+title: "Tauri 2.0으로 ClipBoard+ 개발기: Electron과의 비교"
+category: 기술
+tags: [Tauri, Rust, Electron, Desktop]
+date: "2026-06-08"
+readTime: 8분
+summary: ClipBoard+를 개발하면서 Electron 대신 Tauri를 선택한 이유와 실제 Rust 백엔드 구현 경험을 공유합니다. 바이너리 크기 10배 차이의 비결.
+sections:
+  - type: h2
+    content: 왜 Tauri를 선택했는가
+  - type: p
+    content: 클립보드 관리 앱을 만들 때 Electron이 가장 먼저 떠올랐습니다. 하지만 Electron 앱의 기본 바이너리 크기는 50MB를 훌쩍 넘깁니다. 클립보드 유틸리티처럼 항상 백그라운드에서 실행되는 앱에게 이건 치명적입니다.
+  - type: h2
+    content: Tauri + Rust의 핵심 구조
+  - type: p
+    content: Tauri는 프론트엔드로 시스템 WebView를 사용하고, 백엔드는 Rust로 작성합니다. 클립보드 훅킹 같은 OS 수준 작업은 Rust의 arboard 크레이트가 담당합니다.
+  - type: code
+    content: |
+      // Rust 백엔드: 클립보드 이벤트 감지
+      #[tauri::command]
+      fn watch_clipboard(app: AppHandle) {
+          let mut ctx = arboard::Clipboard::new().unwrap();
+          loop {
+              if let Ok(text) = ctx.get_text() {
+                  app.emit("clipboard-change", text).unwrap();
+              }
+              std::thread::sleep(Duration::from_millis(300));
+          }
+      }
+  - type: h2
+    content: "결과: 바이너리 크기 비교"
+  - type: ul
+    content:
+      - "Electron (hello world): 145MB"
+      - "Tauri (ClipBoard+ 전체): 5.2MB"
+      - "메모리 사용량: Electron ~120MB vs Tauri ~18MB"
+      - "콜드 스타트: Electron ~2.1s vs Tauri ~0.4s"
+  - type: p
+    content: 모든 지표에서 Tauri가 압도적으로 유리했습니다. Rust 학습 비용이 있지만, 유틸리티 앱이라면 Tauri를 강력히 추천합니다.
+---
+
+본문도 Markdown으로 추가 작성할 수 있습니다.

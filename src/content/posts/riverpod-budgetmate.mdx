@@ -1,0 +1,35 @@
+---
+id: 3
+title: "Flutter Riverpod 2.0 마이그레이션: BudgetMate의 경우"
+category: 개발일지
+tags: [Flutter, Riverpod, 상태관리, 마이그레이션]
+date: "2026-05-20"
+readTime: 10분
+summary: BudgetMate v2에서 v3으로 업그레이드하면서 Provider에서 Riverpod 2.0으로 상태관리를 전환한 과정. 코드량 30% 감소와 테스트 용이성 향상.
+sections:
+  - type: h2
+    content: 기존 Provider의 한계
+  - type: p
+    content: BudgetMate v2는 Provider 패턴을 사용했습니다. 앱 규모가 커지면서 Provider의 한계가 드러났습니다.
+  - type: h2
+    content: Riverpod 2.0의 핵심 개념
+  - type: code
+    content: |
+      @riverpod
+      class BudgetNotifier extends _$BudgetNotifier {
+        @override
+        List<Expense> build() => [];
+
+        void addExpense(Expense e) => state = [...state, e];
+      }
+  - type: h2
+    content: 마이그레이션 결과
+  - type: ul
+    content:
+      - 전체 상태관리 코드 30% 감소
+      - 단위 테스트 작성 시간 50% 단축
+      - 불필요한 rebuild 40% 감소
+      - 코드 자동완성 및 타입 추론 개선
+---
+
+본문도 Markdown으로 추가 작성할 수 있습니다.

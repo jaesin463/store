@@ -1,17 +1,33 @@
 ---
+import { getCollection } from 'astro:content';
+import AppShowcaseTemplate from '../components/templates/AppShowcaseTemplate';
 
+const apps = (await getCollection('apps'))
+  .map((entry) => entry.data)
+  .sort((a, b) => a.id - b.id);
+
+const patchNotes = (await getCollection('patchNotes'))
+  .map((entry) => entry.data)
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+const posts = (await getCollection('posts'))
+  .map((entry) => entry.data)
+  .sort((a, b) => a.id - b.id);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App Showcase Blog</title>
+    <meta
+      name="description"
+      content="Discover and download a variety of apps across multiple categories, with features for developer portfolios, improvement requests, and tech stack details."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+  <body>
+    <AppShowcaseTemplate apps={apps} patchNotes={patchNotes} posts={posts} client:load />
+  </body>
 </html>

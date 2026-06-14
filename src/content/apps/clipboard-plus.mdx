@@ -1,0 +1,33 @@
+---
+id: 7
+name: ClipBoard+
+tagline: 클립보드 히스토리 관리자
+description: 복사한 텍스트·이미지·파일을 최대 500개까지 저장. 태그 분류, 빠른 검색, 즐겨찾기.
+category: 유틸
+tech: [Tauri, Rust, React, TypeScript]
+platform: [Windows, macOS]
+version: 1.0.1
+stars: 44
+downloads: 310
+status: active
+link: "#"
+isNew: true
+isFeatured: false
+features:
+  - 텍스트·이미지·파일 히스토리 최대 500개
+  - 태그 기반 분류 및 즐겨찾기
+  - 빠른 검색 (전문 검색)
+  - 글로벌 단축키로 즉시 호출
+  - 항목 고정 (핀) 기능
+  - 앱 종료 후에도 데이터 유지
+techDetail: Tauri 2.0 + Rust 백엔드 + React 프론트엔드. OS 클립보드 훅킹은 Rust arboard 크레이트. 바이너리 크기 약 5MB. 이미지 저장은 Base64가 아닌 파일 경로 참조 방식으로 메모리 최적화. 검색은 Rust 측 fuzzy matching으로 50ms 이내 응답.
+screenshots:
+  - label: 히스토리 목록
+    accent: "#d97706"
+  - label: 검색 팝업
+    accent: "#7c3aed"
+  - label: 설정 화면
+    accent: "#0099bb"
+---
+
+ClipBoard+ 앱 설명 예시입니다.
