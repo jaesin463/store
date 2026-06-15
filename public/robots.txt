@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jaesin463.github.io/store/sitemap-index.xml

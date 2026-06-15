@@ -23,12 +23,18 @@ const posts = (await getCollection('posts'))
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>App Showcase Blog</title>
+    <title>앱화점 | 앱 쇼케이스 블로그</title>
     <meta
       name="description"
-      content="Discover and download a variety of apps across multiple categories, with features for developer portfolios, improvement requests, and tech stack details."
+      content="직접 만든 앱과 패치노트, 개발 기록을 정리하는 앱 쇼케이스 블로그입니다."
     />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://jaesin463.github.io/store/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="앱화점 | 앱 쇼케이스 블로그" />
+    <meta property="og:description" content="직접 만든 앱과 패치노트, 개발 기록을 정리하는 앱 쇼케이스 블로그입니다." />
+    <meta property="og:url" content="https://jaesin463.github.io/store/" />
+    <meta property="og:site_name" content="앱화점" />
   </head>
   <body>
     <AppShowcaseTemplate apps={apps} patchNotes={patchNotes} posts={posts} client:load />
