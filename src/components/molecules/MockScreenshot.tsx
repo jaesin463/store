@@ -1,3 +1,9 @@
+function resolveAssetPath(src: string) {
+  if (/^(https?:|data:|blob:)/.test(src)) return src;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${base}${src.startsWith("/") ? src : `/${src}`}`;
+}
+
 export function MockScreenshot({ accent, label, index, src, alt }: { accent: string; label: string; index: number; src?: string; alt?: string }) {
   const patterns = [
     <div key="list" className="flex flex-col gap-2 p-3 h-full">
@@ -58,7 +64,7 @@ export function MockScreenshot({ accent, label, index, src, alt }: { accent: str
         style={{ background: `linear-gradient(135deg, ${accent}22, ${accent}08)`, border: `1px solid ${accent}30` }}
       >
         {src ? (
-          <img src={src} alt={alt ?? label} className="absolute inset-0 h-full w-full object-contain" loading="lazy" />
+          <img src={resolveAssetPath(src)} alt={alt ?? label} className="absolute inset-0 h-full w-full object-contain" loading="lazy" />
         ) : (
           <div className="absolute inset-0 flex flex-col">
             <div className="flex items-center justify-between px-3 py-1.5" style={{ borderBottom: `1px solid ${accent}20` }}>

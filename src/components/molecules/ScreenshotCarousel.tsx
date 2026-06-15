@@ -5,6 +5,12 @@ import { MockScreenshot } from "./MockScreenshot";
 
 type Screenshot = AppItem["screenshots"][number];
 
+function resolveAssetPath(src: string) {
+  if (/^(https?:|data:|blob:)/.test(src)) return src;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${base}${src.startsWith("/") ? src : `/${src}`}`;
+}
+
 export function ScreenshotCarousel({ screenshots }: { screenshots: Screenshot[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const total = screenshots.length;
@@ -27,7 +33,7 @@ export function ScreenshotCarousel({ screenshots }: { screenshots: Screenshot[] 
         <div className="h-[300px] sm:h-[420px] bg-secondary/35 flex items-center justify-center p-4 sm:p-6">
           {active.src ? (
             <img
-              src={active.src}
+              src={resolveAssetPath(active.src)}
               alt={active.alt ?? active.label}
               className="max-h-full max-w-full object-contain rounded"
               loading="lazy"
