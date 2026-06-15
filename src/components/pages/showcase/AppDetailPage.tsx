@@ -89,7 +89,7 @@ export function AppDetailPage({ app, isDark, onBack, onGoApps }: {
             <h2 className="text-base font-semibold text-foreground mb-4">스크린샷</h2>
             <div className="grid grid-cols-3 gap-3">
               {app.screenshots.map((sc, i) => (
-                <MockScreenshot key={i} accent={sc.accent} label={sc.label} index={i} />
+                <MockScreenshot key={i} accent={sc.accent} label={sc.label} index={i} src={sc.src} alt={sc.alt} />
               ))}
             </div>
           </section>

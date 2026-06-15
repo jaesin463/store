@@ -21,7 +21,7 @@ export interface AppItem {
   isFeatured: boolean;
   features: string[];
   techDetail: string;
-  screenshots: { label: string; accent: string }[];
+  screenshots: { label: string; accent: string; src?: string; alt?: string }[];
 }
 
 export interface PatchNote {

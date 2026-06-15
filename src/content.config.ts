@@ -30,6 +30,8 @@ const apps = defineCollection({
     screenshots: z.array(z.object({
       label: z.string(),
       accent: z.string(),
+      src: z.string().optional(),
+      alt: z.string().optional(),
     })),
   }),
 });
