@@ -1,0 +1,56 @@
+---
+id: 9
+draft: false
+name: SimplifyFile
+tagline: 중복에 가까운 미디어 파일을 찾아 정리하는 Windows 전용 도구
+description: PC 폴더 안의 이미지, 움짤, 동영상을 프레임 기반으로 분석해 거의 중복된 파일을 그룹화하고, 비교·선택·이동·삭제까지 한 화면에서 처리하세요.
+category: 파일관리
+tech: [Python, PySide6, QML, Pillow, FFmpeg, PyInstaller]
+platform: [Windows]
+version: 0.1.0
+stars: 0
+downloads: 0
+status: active
+link: "https://github.com/jaesin463/SimplifyFile/releases"
+isNew: true
+isFeatured: true
+features:
+  - 이미지, GIF, MP4 등 미디어 파일 프레임 기반 분석
+  - 하위 폴더를 포함한 폴더 구조와 확장자별 파일 수 요약
+  - 거의 중복부터 넓은 후보까지 조절하는 분석 민감도
+  - 유사 그룹별 썸네일 결과와 큰 화면 함께 보기
+  - GIF와 동영상 프로그램 내 재생
+  - 정리 후보 전체 선택과 개별 파일 카드 선택
+  - 선택 파일 이동, 휴지통 이동, 영구 삭제
+  - 파일 경로 클릭 시 Windows 탐색기에서 해당 파일 위치 열기
+  - 시스템 트레이 백그라운드 실행과 분석 완료 알림
+  - GitHub Release용 Windows 실행 파일 자동 빌드
+techDetail: PySide6와 QML로 Windows 데스크톱 UI를 구성하고, Pillow 기반 이미지 해시와 FFmpeg 프레임 샘플링으로 이미지·움짤·동영상의 유사도를 비교합니다. 분석과 폴더 스캔은 백그라운드 워커에서 처리해 UI 응답성을 유지하며, PyInstaller와 GitHub Actions를 통해 Windows 실행 파일과 Release ZIP을 자동 생성합니다. 파일은 외부 서버로 업로드하지 않고 사용자 PC 안에서 처리합니다.
+screenshots:
+  - label: 폴더 분석 대시보드
+    accent: "#6aa0ff"
+    src: "/apps/simplifyfile/screenshots/01-dashboard-demo.png"
+    alt: "SimplifyFile 폴더 분석 대시보드 예시 화면"
+  - label: 유사 미디어 그룹
+    accent: "#4ee3a3"
+    src: "/apps/simplifyfile/screenshots/02-groups-demo.png"
+    alt: "SimplifyFile 유사 미디어 그룹 분석 결과 예시 화면"
+  - label: 함께 보기 비교 화면
+    accent: "#ff6680"
+    src: "/apps/simplifyfile/screenshots/03-compare-demo.png"
+    alt: "SimplifyFile 함께 보기 비교 화면 예시"
+  - label: 정리 후보 선택
+    accent: "#d7dce5"
+    src: "/apps/simplifyfile/screenshots/04-selection-demo.png"
+    alt: "SimplifyFile 정리 후보 선택 예시 화면"
+  - label: 분석 진행 상태
+    accent: "#8ea8ff"
+    src: "/apps/simplifyfile/screenshots/05-progress-demo.png"
+    alt: "SimplifyFile 미디어 분석 진행 상태 예시"
+---
+
+SimplifyFile은 Windows PC에 쌓인 사진, 움짤, 동영상 중 중복에 가까운 파일을 빠르게 찾아 정리하기 위한 로컬 미디어 정리 도구입니다.
+
+폴더를 선택하면 전체 파일 수, 미디어 파일 수, 확장자별 분포를 먼저 보여주고, 분석을 시작하면 이미지 해시와 영상 프레임 샘플링을 이용해 관련 파일을 그룹화합니다. 사용자는 썸네일과 함께 보기 화면에서 실제 파일을 확인한 뒤 정리 후보를 선택할 수 있습니다.
+
+선택한 파일은 원하는 폴더로 이동하거나 휴지통으로 보낼 수 있으며, 필요할 경우 영구 삭제도 가능합니다. 모든 분석은 사용자 PC 안에서 이루어지며, GitHub Release에서 Windows 실행 파일을 내려받아 사용할 수 있습니다.
