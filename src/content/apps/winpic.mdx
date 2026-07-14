@@ -2,8 +2,8 @@
 id: 8
 draft: false
 name: WinPic
-tagline: Windows 사진과 영상을 한곳에서 정리하는 로컬 갤러리
-description: PC 안의 사진과 영상을 폴더별로 불러와 앨범, 검색, 즐겨찾기, 휴지통, 전체 화면 뷰어로 관리하는 Windows용 갤러리 앱.
+tagline: 미디어 파일을 한곳에서 정리하는 Windows 전용 갤러리
+description: PC 안의 미디어를 폴더별로 추가해 앨범, 검색, 즐겨찾기, 휴지통, 전체 화면등 편리하게 미디어를 탐색하세요.
 category: 사진
 tech: [C#, WPF, WebView2, JavaScript]
 platform: [Windows]
@@ -11,7 +11,7 @@ version: 0.1.0
 stars: 0
 downloads: 0
 status: active
-link: "https://github.com/jaesin463/store/releases"
+link: "https://github.com/jaesin463/WinPic/releases"
 isNew: true
 isFeatured: true
 features:
@@ -25,17 +25,17 @@ features:
   - 영상 재생, 타임라인, 프레임 미리보기
   - 검색, 휴지통, 복원, 즉시 삭제
   - 썸네일 캐시 정리
-techDetail: WPF 기반 Windows 데스크톱 호스트에 WebView2로 갤러리 UI를 올렸습니다. C# 브리지가 로컬 Pictures/Videos 폴더를 스캔하고 Windows Shell 썸네일을 캐시하며, JavaScript UI는 사진 그리드, 앨범, 폴더 관리, 휴지통, 전체 화면 뷰어를 담당합니다. 미디어 파일은 외부 서버로 업로드하지 않고 사용자 PC 안에서 처리합니다.
+techDetail: WPF 기반 Windows 데스크톱 호스트에 WebView2로 UI를 생성했습니다. C# 브리지가 폴더를 스캔하고 Windows Shell 썸네일을 캐시하며, JavaScript UI는 사진 그리드, 앨범, 폴더 관리, 휴지통, 전체 화면 뷰어를 담당합니다. 미디어 파일은 외부 서버로 업로드하지 않고 사용자 PC 안에서 처리합니다.
 screenshots:
-  - label: 사진 그리드
+  - label: 미디어 목록 보기
     accent: "#8ea8ff"
     src: "/apps/winpic/screenshots/01-photos-demo.png"
-    alt: "WinPic 사진 그리드 화면"
-  - label: 앨범 정리
+    alt: "WinPic 사진 탭 전체 미디어 화면"
+  - label: 앨범 목록
     accent: "#78b892"
     src: "/apps/winpic/screenshots/02-albums-demo.png"
-    alt: "WinPic 앨범 화면"
-  - label: 폴더 관리
+    alt: "WinPic 앨범 탭 화면"
+  - label: 동기화 폴더 관리
     accent: "#7aa2d8"
     src: "/apps/winpic/screenshots/03-folders-demo.png"
     alt: "WinPic 폴더 관리 화면"
@@ -43,7 +43,7 @@ screenshots:
     accent: "#b487d6"
     src: "/apps/winpic/screenshots/04-trash-demo.png"
     alt: "WinPic 휴지통 화면"
-  - label: 전체 화면 뷰어
+  - label: 미디어 뷰어
     accent: "#d6a05f"
     src: "/apps/winpic/screenshots/05-viewer-demo.png"
     alt: "WinPic 전체 화면 뷰어"
