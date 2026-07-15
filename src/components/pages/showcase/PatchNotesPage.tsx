@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { AlertCircle, ArrowRight, Bug, Calendar, Check, ChevronLeft, ChevronRight, Clock, Clock3, Download, ExternalLink, Github, Lightbulb, Mail, Send, Star, Tag } from "lucide-react";
 import { APP_PAGE_SIZE, BLOG_PAGE_SIZE, PATCH_NOTE_PAGE_SIZE } from "../../../features/showcase/constants";
@@ -14,11 +14,39 @@ import { APPS, BLOG_POSTS, PATCH_NOTES } from "./showcasePageData";
 // ─── PATCH NOTES PAGE ───────────────────────────────────────────────────────
 
 export function PatchNotesPage() {
-  const [selectedApp, setSelectedApp] = useState("전체");
-  const [currentPage, setCurrentPage] = useState(1);
   const appNames = ["전체", ...Array.from(new Set(PATCH_NOTES.map((n) => n.app)))];
+  const getInitialApp = () => {
+    if (typeof window === "undefined") return "전체";
+    const appParam = new URLSearchParams(window.location.search).get("app");
+    return appParam && appNames.includes(appParam) ? appParam : "전체";
+  };
+  const [selectedApp, setSelectedApp] = useState(getInitialApp);
+  const [currentPage, setCurrentPage] = useState(1);
   const filtered = selectedApp === "전체" ? PATCH_NOTES : PATCH_NOTES.filter((n) => n.app === selectedApp);
   const pagedNotes = filtered.slice((currentPage - 1) * PATCH_NOTE_PAGE_SIZE, currentPage * PATCH_NOTE_PAGE_SIZE);
+
+  useEffect(() => {
+    function handlePopState() {
+      setSelectedApp(getInitialApp());
+      setCurrentPage(1);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  function handleFilterClick(name: string) {
+    setSelectedApp(name);
+    setCurrentPage(1);
+
+    const url = new URL(window.location.href);
+    if (name === "전체") {
+      url.searchParams.delete("app");
+    } else {
+      url.searchParams.set("app", name);
+    }
+    window.history.pushState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
@@ -30,10 +58,7 @@ export function PatchNotesPage() {
         {appNames.map((name) => (
           <button
             key={name}
-            onClick={() => {
-              setSelectedApp(name);
-              setCurrentPage(1);
-            }}
+            onClick={() => handleFilterClick(name)}
             className={`px-3 py-1.5 rounded text-sm transition-colors ${
               selectedApp === name ? "bg-primary text-primary-foreground font-medium" : "bg-secondary text-muted-foreground hover:text-foreground"
             }`}

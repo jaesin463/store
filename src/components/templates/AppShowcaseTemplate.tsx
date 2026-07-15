@@ -30,6 +30,10 @@ function pathForPage(page: Page) {
   return `${BASE_PATH}${pathMap[page] ?? "/"}`;
 }
 
+function pathForAppPatchNotes(app: AppItem) {
+  return `${BASE_PATH}/patch-notes/?app=${encodeURIComponent(app.name)}`;
+}
+
 function pathForApp(app: AppItem) {
   const slug = app.slug ?? app.name.toLowerCase().replace(/\s+/g, "-");
   return `${BASE_PATH}/apps/${slug}/`;
@@ -81,7 +85,15 @@ export default function App({ apps, patchNotes, posts, initialPage = "home", sel
         {page === "home" && <HomePage setPage={navigate} goToApp={goToApp} goToPost={goToPost} isDark={isDark} />}
         {page === "apps" && <AppsPage isDark={isDark} goToApp={goToApp} />}
         {page === "app-detail" && selectedApp && (
-          <AppDetailPage app={selectedApp} isDark={isDark} onBack={() => navigate("apps")} onGoPatchNotes={() => navigate("patchnotes")} />
+          <AppDetailPage
+            app={selectedApp}
+            isDark={isDark}
+            onBack={() => navigate("apps")}
+            onGoPatchNotes={() => {
+              setMobileOpen(false);
+              window.location.href = pathForAppPatchNotes(selectedApp);
+            }}
+          />
         )}
         {page === "patchnotes" && <PatchNotesPage />}
         {page === "blog" && <BlogPage goToPost={goToPost} />}
