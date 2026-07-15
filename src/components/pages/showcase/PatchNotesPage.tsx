@@ -20,7 +20,7 @@ export function PatchNotesPage() {
     const appParam = new URLSearchParams(window.location.search).get("app");
     return appParam && appNames.includes(appParam) ? appParam : "전체";
   };
-  const [selectedApp, setSelectedApp] = useState("전체");
+  const [selectedApp, setSelectedApp] = useState(getInitialApp);
   const [currentPage, setCurrentPage] = useState(1);
   const filtered = selectedApp === "전체" ? PATCH_NOTES : PATCH_NOTES.filter((n) => n.app === selectedApp);
   const pagedNotes = filtered.slice((currentPage - 1) * PATCH_NOTE_PAGE_SIZE, currentPage * PATCH_NOTE_PAGE_SIZE);
