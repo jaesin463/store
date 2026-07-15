@@ -26,13 +26,14 @@ export function PatchNotesPage() {
   const pagedNotes = filtered.slice((currentPage - 1) * PATCH_NOTE_PAGE_SIZE, currentPage * PATCH_NOTE_PAGE_SIZE);
 
   useEffect(() => {
-    function handlePopState() {
+    function syncSelectedAppFromUrl() {
       setSelectedApp(getInitialApp());
       setCurrentPage(1);
     }
 
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    syncSelectedAppFromUrl();
+    window.addEventListener("popstate", syncSelectedAppFromUrl);
+    return () => window.removeEventListener("popstate", syncSelectedAppFromUrl);
   }, []);
 
   function handleFilterClick(name: string) {
