@@ -13,11 +13,11 @@ import { ScreenshotCarousel } from "../../molecules/ScreenshotCarousel";
 import { APPS, BLOG_POSTS, PATCH_NOTES } from "./showcasePageData";
 // ─── APP DETAIL PAGE ────────────────────────────────────────────────────────
 
-export function AppDetailPage({ app, isDark, onBack, onGoApps }: {
+export function AppDetailPage({ app, isDark, onBack, onGoPatchNotes }: {
   app: AppItem;
   isDark: boolean;
   onBack: () => void;
-  onGoApps: () => void;
+  onGoPatchNotes: () => void;
 }) {
   const [feedbackTab, setFeedbackTab] = useState<"improve" | "bug">("improve");
   const [form, setForm] = useState({ title: "", detail: "", contact: "" });
@@ -25,6 +25,8 @@ export function AppDetailPage({ app, isDark, onBack, onGoApps }: {
 
   const meta = CATEGORY_META[app.category];
   const accentColor = isDark ? (DARK_CATEGORY_META[app.category] ?? meta?.color ?? "#7878a0") : (meta?.color ?? "#7878a0");
+  const appPatchNotes = PATCH_NOTES.filter((n) => n.app === app.name);
+  const visiblePatchNotes = appPatchNotes.slice(0, 3);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -116,12 +118,22 @@ export function AppDetailPage({ app, isDark, onBack, onGoApps }: {
 
           {/* Patch history for this app */}
           <section>
-            <h2 className="text-base font-semibold text-foreground mb-4">업데이트 히스토리</h2>
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <h2 className="text-base font-semibold text-foreground">업데이트 히스토리</h2>
+              {appPatchNotes.length > 0 && (
+                <button
+                  onClick={onGoPatchNotes}
+                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  전체 보기 <ArrowRight size={13} />
+                </button>
+              )}
+            </div>
             <div className="flex flex-col gap-3">
-              {PATCH_NOTES.filter((n) => n.app === app.name).length === 0 ? (
+              {appPatchNotes.length === 0 ? (
                 <p className="text-sm text-muted-foreground">아직 패치노트가 없습니다.</p>
               ) : (
-                PATCH_NOTES.filter((n) => n.app === app.name).map((note, idx) => (
+                visiblePatchNotes.map((note, idx) => (
                   <div key={idx} className="bg-card border border-border rounded-md overflow-hidden">
                     <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
                       <span className="text-primary font-medium text-sm" style={{ fontFamily: "'JetBrains Mono', monospace" }}>v{note.version}</span>
@@ -140,6 +152,14 @@ export function AppDetailPage({ app, isDark, onBack, onGoApps }: {
                 ))
               )}
             </div>
+            {appPatchNotes.length > visiblePatchNotes.length && (
+              <button
+                onClick={onGoPatchNotes}
+                className="mt-4 w-full flex items-center justify-center gap-1.5 py-2.5 border border-border rounded text-sm text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+              >
+                나머지 {appPatchNotes.length - visiblePatchNotes.length}개 패치노트 보기 <ArrowRight size={13} />
+              </button>
+            )}
           </section>
         </div>
 

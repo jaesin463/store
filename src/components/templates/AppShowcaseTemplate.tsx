@@ -81,7 +81,7 @@ export default function App({ apps, patchNotes, posts, initialPage = "home", sel
         {page === "home" && <HomePage setPage={navigate} goToApp={goToApp} goToPost={goToPost} isDark={isDark} />}
         {page === "apps" && <AppsPage isDark={isDark} goToApp={goToApp} />}
         {page === "app-detail" && selectedApp && (
-          <AppDetailPage app={selectedApp} isDark={isDark} onBack={() => navigate("apps")} onGoApps={() => navigate("apps")} />
+          <AppDetailPage app={selectedApp} isDark={isDark} onBack={() => navigate("apps")} onGoPatchNotes={() => navigate("patchnotes")} />
         )}
         {page === "patchnotes" && <PatchNotesPage />}
         {page === "blog" && <BlogPage goToPost={goToPost} />}
